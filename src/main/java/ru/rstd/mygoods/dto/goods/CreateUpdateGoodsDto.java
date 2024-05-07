@@ -1,11 +1,7 @@
 package ru.rstd.mygoods.dto.goods;
 
 
-import jakarta.annotation.Nullable;
-import jakarta.validation.Constraint;
-import jakarta.validation.constraints.DecimalMin;;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -33,5 +29,4 @@ public class CreateUpdateGoodsDto {
 
     @InStock(groups = {OnCreate.class, OnUpdate.class})
     private String inStock;
-    // TODO: 06.05.2024 write custom validator
 }

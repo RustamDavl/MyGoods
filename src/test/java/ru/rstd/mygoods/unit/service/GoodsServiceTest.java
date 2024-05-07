@@ -43,7 +43,6 @@ public class GoodsServiceTest {
         assertThat(actualResult.getDescription()).isEqualTo(savedGoods.getDescription());
         assertThat(actualResult.getId()).isEqualTo(savedGoods.getId());
         assertThat(actualResult.getPrice()).isEqualTo(savedGoods.getPrice());
-
     }
 
     @Test
