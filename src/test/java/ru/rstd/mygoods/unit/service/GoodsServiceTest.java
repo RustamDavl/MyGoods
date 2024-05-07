@@ -24,7 +24,7 @@ import static org.mockito.Mockito.doThrow;
 public class GoodsServiceTest {
 
     @Mock
-    private GoodsRepository goodsRepository;
+    private GoodsRepository goodsRepositoryImpl;
 
     @InjectMocks
     private GoodsServiceImpl goodsService;
@@ -35,7 +35,7 @@ public class GoodsServiceTest {
     void getById_should_pass() {
         Goods savedGoods = getSavedGoods();
 
-        doReturn(Optional.of(savedGoods)).when(goodsRepository).findById(1L);
+        doReturn(Optional.of(savedGoods)).when(goodsRepositoryImpl).findById(1L);
 
         Goods actualResult = goodsService.getById(1L);
 
@@ -48,7 +48,7 @@ public class GoodsServiceTest {
     @Test
     @DisplayName("create by id should throw GoodsNotFoundException")
     void getById_should_throw_GoodsNotFoundException() {
-        doThrow(GoodsNotFoundException.class).when(goodsRepository).findById(1L);
+        doThrow(GoodsNotFoundException.class).when(goodsRepositoryImpl).findById(1L);
 
         assertThrows(GoodsNotFoundException.class, () -> goodsService.getById(1L));
     }
@@ -58,7 +58,7 @@ public class GoodsServiceTest {
         Goods goodsFromRequest = getGoodsFromRequest();
         Goods savedGoods = getSavedGoods();
 
-        doReturn(savedGoods).when(goodsRepository).create(goodsFromRequest);
+        doReturn(savedGoods).when(goodsRepositoryImpl).save(goodsFromRequest);
 
         Goods actualResult = goodsService.create(goodsFromRequest);
         assertThat(actualResult.getId()).isEqualTo(savedGoods.getId());
@@ -74,9 +74,9 @@ public class GoodsServiceTest {
                 .price(BigDecimal.valueOf(11111.11))
                 .inStock(true)
                 .build();
-        doReturn(newGoods).when(goodsRepository).update(oldGoods);
+        doReturn(newGoods).when(goodsRepositoryImpl).save(oldGoods);
 
-        Goods actualResult = goodsService.update(newGoods);
+        Goods actualResult = goodsService.update(oldGoods);
 
         assertThat(actualResult.getId()).isEqualTo(newGoods.getId());
         assertThat(actualResult.getName()).isEqualTo(newGoods.getName());
