@@ -1,0 +1,12 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  liquibase:
+    change-log: db/changelog/db.changelog-master.yaml
+    enabled: true
+    default-schema: ${DEFAULT_SCHEMA}
+  datasource:
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
+    driver-class-name: org.postgresql.Driver
