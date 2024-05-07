@@ -1,4 +1,4 @@
-package ru.rstd.mygoods.unit;
+package ru.rstd.mygoods.unit.entity;
 
 
 import org.junit.jupiter.api.BeforeEach;

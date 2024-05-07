@@ -6,6 +6,7 @@ import jakarta.validation.Constraint;
 import jakarta.validation.constraints.DecimalMin;;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import ru.rstd.mygoods.dto.validation.annotation.ValidPrice;
@@ -14,6 +15,7 @@ import ru.rstd.mygoods.dto.validation.group.OnUpdate;
 import ru.rstd.mygoods.dto.validation.annotation.InStock;
 
 @Data
+@Builder
 public class CreateUpdateGoodsDto {
 
     @NotBlank(groups = OnUpdate.class)
