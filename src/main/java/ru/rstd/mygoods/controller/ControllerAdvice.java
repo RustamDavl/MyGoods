@@ -25,6 +25,12 @@ public class ControllerAdvice {
         return new ExceptionBody(e.getMessage());
     }
 
+    @ExceptionHandler(NumberFormatException.class)
+    @ResponseStatus(BAD_REQUEST)
+    public ExceptionBody handleNumberFormatException(NumberFormatException e) {
+        return new ExceptionBody(e.getMessage());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(BAD_REQUEST)
     public ExceptionBody handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {

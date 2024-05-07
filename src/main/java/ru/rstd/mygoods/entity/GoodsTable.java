@@ -38,11 +38,12 @@ public class GoodsTable implements Table<Goods> {
 
     @Override
     public Goods update(Goods entity) {
-        return goodsTable.put(entity.getId(), entity);
+        goodsTable.put(entity.getId(), entity);
+        return goodsTable.get(entity.getId());
     }
 
     @Override
     public void delete(Long id) {
-        goodsTable.remove(sequence);
+        goodsTable.remove(id);
     }
 }

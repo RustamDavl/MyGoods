@@ -7,6 +7,7 @@ import ru.rstd.mygoods.exception.GoodsNotFoundException;
 import ru.rstd.mygoods.repository.GoodsRepository;
 import ru.rstd.mygoods.service.GoodsService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,6 +31,8 @@ public class GoodsServiceImpl implements GoodsService {
     public Goods create(Goods goods) {
         if (goods.getInStock() == null)
             goods.setInStock(false);
+        if (goods.getPrice() == null)
+            goods.setPrice(BigDecimal.valueOf(0));
         return goodsRepository.create(goods);
     }
 

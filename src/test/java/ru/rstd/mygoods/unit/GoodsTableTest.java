@@ -1,7 +1,7 @@
 package ru.rstd.mygoods.unit;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.rstd.mygoods.entity.Goods;
 import ru.rstd.mygoods.entity.GoodsTable;
@@ -14,10 +14,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class GoodsTableTest {
 
-    private static Table<Goods> table;
+    private Table<Goods> table;
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+    void setUp() {
         table = new GoodsTable();
         prepareData();
     }
@@ -75,14 +75,15 @@ public class GoodsTableTest {
 
     @Test
     void delete() {
-        table.delete(4L);
-        table.delete(3L);
+        table.delete(1L);
+        table.delete(2L);
         List<Goods> goods = table.selectAll();
-        assertThat(goods.size()).isEqualTo(2);
+        assertThat(goods.size()).isEqualTo(1);
+        assertThat(goods.get(goods.size() - 1).getId()).isEqualTo(3);
     }
 
 
-    private static void prepareData() {
+    private void prepareData() {
         Goods tv = Goods.builder()
                 .name("TV")
                 .description("Amoled")

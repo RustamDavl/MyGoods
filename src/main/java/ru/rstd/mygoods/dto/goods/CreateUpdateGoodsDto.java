@@ -1,10 +1,14 @@
 package ru.rstd.mygoods.dto.goods;
 
 
+import jakarta.annotation.Nullable;
+import jakarta.validation.Constraint;
 import jakarta.validation.constraints.DecimalMin;;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
+import ru.rstd.mygoods.dto.validation.annotation.ValidPrice;
 import ru.rstd.mygoods.dto.validation.group.OnCreate;
 import ru.rstd.mygoods.dto.validation.group.OnUpdate;
 import ru.rstd.mygoods.dto.validation.annotation.InStock;
@@ -21,8 +25,10 @@ public class CreateUpdateGoodsDto {
 
     @Length(max = 4096, message = "name length must be less than 4096 characters", groups = {OnCreate.class, OnUpdate.class})
     private String description;
-    @DecimalMin(value = "0", message = "price can not be less than 0", groups = {OnCreate.class, OnUpdate.class})
+
+    @ValidPrice(groups = {OnCreate.class, OnUpdate.class})
     private String price;
+
     @InStock(groups = {OnCreate.class, OnUpdate.class})
     private String inStock;
     // TODO: 06.05.2024 write custom validator
