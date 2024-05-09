@@ -1,10 +1,15 @@
 package ru.rstd.mygoods.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.rstd.mygoods.dto.goods.CreateUpdateGoodsDto;
+import ru.rstd.mygoods.dto.goods.GoodsFilter;
+import ru.rstd.mygoods.dto.goods.GoodsPageResponse;
 import ru.rstd.mygoods.dto.goods.ReadGoodsDto;
 import ru.rstd.mygoods.dto.validation.group.OnCreate;
 import ru.rstd.mygoods.dto.validation.group.OnUpdate;
@@ -26,12 +31,10 @@ public class GoodsController {
     private final GoodsMapper goodsMapper;
 
     @GetMapping
-    public ResponseEntity<List<ReadGoodsDto>> getAll() {
-        List<ReadGoodsDto> readGoodsDtos = goodsService.getAll().stream()
-                .map(goodsMapper::toReadGoodsDto)
-                .toList();
+    public ResponseEntity<GoodsPageResponse<Goods>> getAll(@Valid GoodsFilter goodsFilter, Pageable pageable) {
+        Page<Goods> page = goodsService.getAllByFilterWithPageable(goodsFilter, pageable);
         return ResponseEntity.status(OK)
-                .body(readGoodsDtos);
+                .body(GoodsPageResponse.of(page));
     }
 
     @GetMapping("/{id}")

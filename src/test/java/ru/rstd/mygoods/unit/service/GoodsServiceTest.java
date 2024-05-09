@@ -1,12 +1,18 @@
 package ru.rstd.mygoods.unit.service;
 
 
+import com.querydsl.core.types.Predicate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import ru.rstd.mygoods.dto.goods.GoodsFilter;
 import ru.rstd.mygoods.entity.Goods;
 import ru.rstd.mygoods.exception.GoodsNotFoundException;
 import ru.rstd.mygoods.repository.GoodsRepository;
@@ -17,8 +23,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class GoodsServiceTest {
@@ -95,6 +101,18 @@ public class GoodsServiceTest {
                 .build();
     }
 
+    @Test
+    void findAll_By_Filter_And_Pageable() {
+        Page page = mock(Page.class);
+        GoodsFilter filter = mock(GoodsFilter.class);
+        doReturn(page).when(goodsRepositoryImpl).findAll(any(Predicate.class), any(Pageable.class));
+
+        goodsService.getAllByFilterWithPageable(filter, PageRequest.of(1, 20, Sort.Direction.ASC, "name"));
+
+        verify(goodsRepositoryImpl).findAll(any(Predicate.class), any(Pageable.class));
+        verifyNoMoreInteractions(goodsRepositoryImpl);
+    }
+
     private Goods getSavedGoods() {
         return Goods.builder()
                 .id(1L)
@@ -104,5 +122,4 @@ public class GoodsServiceTest {
                 .inStock(true)
                 .build();
     }
-
 }
