@@ -1,3 +1,7 @@
 databaseChangeLog:
   - include:
       file: db/changelog/V1__create_goods_table.sql
+  - include:
+      file: db/changelog/V1__create_goods_delivery_table.sql
+  - include:
+      file: db/changelog/V1__create_goods_sale_table.sql

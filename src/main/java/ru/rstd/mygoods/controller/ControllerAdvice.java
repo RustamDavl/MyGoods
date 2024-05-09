@@ -7,8 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.rstd.mygoods.exception.ExceptionBody;
-import ru.rstd.mygoods.exception.GoodsNotFoundException;
+import ru.rstd.mygoods.exception.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +21,12 @@ public class ControllerAdvice {
     @ExceptionHandler(GoodsNotFoundException.class)
     @ResponseStatus(NOT_FOUND)
     public ExceptionBody handleResourceNotFoundException(GoodsNotFoundException e) {
+        return new ExceptionBody(e.getMessage());
+    }
+
+    @ExceptionHandler({DeliveryDocumentNotFoundException.class, SaleDocumentNotFoundException.class, DocumentDuplicateException.class})
+    @ResponseStatus(NOT_FOUND)
+    public ExceptionBody handleDeliveryDocumentNotFoundException(RuntimeException e) {
         return new ExceptionBody(e.getMessage());
     }
 
