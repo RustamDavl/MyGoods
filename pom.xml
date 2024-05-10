@@ -98,13 +98,6 @@
             <version>${querydsl.version}</version>
             <classifier>jakarta</classifier>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.maven.wagon/wagon-http-shared -->
-        <dependency>
-            <groupId>org.apache.maven.wagon</groupId>
-            <artifactId>wagon-http-shared</artifactId>
-            <version>3.5.3</version>
-        </dependency>
-
     </dependencies>
 
     <build>

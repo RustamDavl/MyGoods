@@ -18,4 +18,6 @@ public interface GoodsService {
     Goods update(Goods goods);
 
     void delete(Long id);
+
+    Goods updateInStock(Long goodsId, boolean value);
 }
