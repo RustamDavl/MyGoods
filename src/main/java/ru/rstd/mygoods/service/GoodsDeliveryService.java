@@ -14,4 +14,5 @@ public interface GoodsDeliveryService {
 
     void delete(Long id);
     GoodsDelivery update(GoodsDelivery goodsDelivery, Long goodsId);
+    GoodsDelivery getByGoodsId(Long goodsId);
 }

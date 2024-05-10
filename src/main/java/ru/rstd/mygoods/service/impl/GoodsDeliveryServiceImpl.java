@@ -27,6 +27,8 @@ public class GoodsDeliveryServiceImpl implements GoodsDeliveryService {
         if (goodsOptional.isPresent())
             throw new DocumentDuplicateException("Goods sale document with such goods already exists.");
         Goods maybeGoods = goodsService.getById(goodsId);
+        if (!maybeGoods.getInStock())
+            maybeGoods.setInStock(true);
         goodsDelivery.setGoods(maybeGoods);
         return goodsDeliveryRepository.save(goodsDelivery);
     }
@@ -53,5 +55,11 @@ public class GoodsDeliveryServiceImpl implements GoodsDeliveryService {
         Goods maybeGoods = goodsService.getById(goodsId);
         goodsDelivery.setGoods(maybeGoods);
         return goodsDeliveryRepository.save(goodsDelivery);
+    }
+
+    @Override
+    public GoodsDelivery getByGoodsId(Long goodsId) {
+        return goodsDeliveryRepository.findByGoodsId(goodsId)
+                .orElseThrow(() -> new DeliveryDocumentNotFoundException("There is no delivery document with such goods"));
     }
 }

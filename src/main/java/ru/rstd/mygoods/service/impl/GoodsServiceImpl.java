@@ -70,11 +70,19 @@ public class GoodsServiceImpl implements GoodsService {
         goodsRepository.deleteById(id);
     }
 
+    @Override
+    public Goods updateInStock(Long goodsId, boolean value) {
+        Goods maybeGoods = goodsRepository.findById(goodsId)
+                .orElseThrow(() -> new GoodsNotFoundException("There is no goods with such id"));
+        maybeGoods.setInStock(value);
+        return goodsRepository.save(maybeGoods);
+    }
+
     private Predicate preparePredicate(GoodsFilter goodsFilter) {
         return QGoodsPredicate.builder()
                 .add(goodsFilter.getName(), o -> goods.name.containsIgnoreCase(goodsFilter.getName()))
                 .add(goodsFilter.getPrice(), o -> {
-                    if(goodsFilter.getOp() == null)
+                    if (goodsFilter.getOp() == null)
                         return goods.price.eq(BigDecimal.valueOf(Double.parseDouble(goodsFilter.getPrice())));
                     if (goodsFilter.getOp().equals("<")) {
                         return goods.price.loe(BigDecimal.valueOf(Double.parseDouble(goodsFilter.getPrice())));

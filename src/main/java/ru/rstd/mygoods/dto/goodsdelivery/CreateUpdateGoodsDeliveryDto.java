@@ -3,12 +3,14 @@ package ru.rstd.mygoods.dto.goodsdelivery;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import ru.rstd.mygoods.dto.validation.group.OnCreate;
 import ru.rstd.mygoods.dto.validation.group.OnUpdate;
 
 @Data
+@Builder
 public class CreateUpdateGoodsDeliveryDto {
 
     @NotNull(groups = OnUpdate.class)

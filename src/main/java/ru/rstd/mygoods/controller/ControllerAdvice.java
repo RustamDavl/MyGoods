@@ -24,9 +24,21 @@ public class ControllerAdvice {
         return new ExceptionBody(e.getMessage());
     }
 
-    @ExceptionHandler({DeliveryDocumentNotFoundException.class, SaleDocumentNotFoundException.class, DocumentDuplicateException.class})
+    @ExceptionHandler({DeliveryDocumentNotFoundException.class, SaleDocumentNotFoundException.class})
     @ResponseStatus(NOT_FOUND)
     public ExceptionBody handleDeliveryDocumentNotFoundException(RuntimeException e) {
+        return new ExceptionBody(e.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(BAD_REQUEST)
+    public ExceptionBody handleIllegalArgumentException(IllegalArgumentException e) {
+        return new ExceptionBody(e.getMessage());
+    }
+
+    @ExceptionHandler(DocumentDuplicateException.class)
+    @ResponseStatus(BAD_REQUEST)
+    public ExceptionBody handleDocumentDuplicateException(DocumentDuplicateException e) {
         return new ExceptionBody(e.getMessage());
     }
 
