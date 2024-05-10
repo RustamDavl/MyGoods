@@ -81,7 +81,7 @@ public class GoodsServiceTest {
                 .inStock(true)
                 .build();
         doReturn(newGoods).when(goodsRepositoryImpl).save(oldGoods);
-
+        doReturn(Optional.of(oldGoods)).when(goodsRepositoryImpl).findById(1L);
         Goods actualResult = goodsService.update(oldGoods);
 
         assertThat(actualResult.getId()).isEqualTo(newGoods.getId());
